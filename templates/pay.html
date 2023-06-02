@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+  font-family: Sans-Serif;
+}
+
+#start-payment-button {
+    cursor: pointer;
+    position: relative;
+    background-color: blueviolet;
+    color: #fff;
+    max-width: 30%;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 10px;
+    border: none;
+    transition: all .1s ease-in;
+}
+    </style>
+</head>
+<body>
+    
+    <form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+        <div>
+      Your order is ₦{{ticket.total_amount}}
+    </div>
+    <input type="hidden" name="public_key" value="FLWPUBK_TEST-a1a2196f0c59ae05d88f3921c4cb5b75-X" />
+    <input type="hidden" name="customer[email]" value="{{ticket.email}}" />
+    <input type="hidden" name="customer[name]" value="{{ticket.owner}}" />
+    <input type="hidden" name="tx_ref" value="bitethtx-019203" />
+    <input type="hidden" name="amount" value="{{ticket.total_amount}}" />
+    <input type="hidden" name="currency" value="NGN" />
+    <input type="hidden" name="meta[token]" value="54" />
+    <input type="hidden" name="redirect_url" value="http://127.0.0.1:8000/confirm/" + {{ticket.id}}/>
+    <!-- <input type="hidden" name="redirect_url" value="http://127.0.0.1:8000/"/> -->
+    <button type="submit" id="start-payment-button">Pay {{ticket.total_amount}} Now</button>
+    <!-- <button type="submit" id="start-payment-button">Pay Now</button> -->
+</form>
+
+</body>
+</html>
